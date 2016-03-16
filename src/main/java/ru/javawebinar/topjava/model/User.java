@@ -2,9 +2,7 @@ package ru.javawebinar.topjava.model;
 
 import ru.javawebinar.topjava.util.UserMealsUtil;
 
-import java.util.Date;
-import java.util.EnumSet;
-import java.util.Set;
+import java.util.*;
 
 /**
  * User: gkislin
@@ -82,6 +80,10 @@ public class User extends NamedEntity {
 
     public String getPassword() {
         return password;
+    }
+
+    public boolean isNew() {
+        return id == null;
     }
 
     @Override
