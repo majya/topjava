@@ -2,7 +2,10 @@ package ru.javawebinar.topjava.web;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import ru.javawebinar.topjava.model.UserMeal;
+import ru.javawebinar.topjava.model.to.UserMealWithExceed;
 import ru.javawebinar.topjava.web.meal.UserMealRestController;
 
 import javax.servlet.ServletConfig;
@@ -11,26 +14,59 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * User: gkislin
  * Date: 19.08.2014
  */
+
+
 public class MealServlet extends HttpServlet {
     private static final Logger LOG = LoggerFactory.getLogger(MealServlet.class);
-    ;
+
     private UserMealRestController controller;
 
     @Override
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
-        controller = new UserMealRestController();
-
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
+            controller = appCtx.getBean(UserMealRestController.class);
+        }
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws javax.servlet.ServletException, IOException {
+
+
+        String action = "";
+        try {
+            action = request.getParameter("action");
+        } catch (Exception e) {
+            LOG.info(e.getMessage());
+        }
+
+
+        if (action != null && action.equals("filter")) {
+            String startDateString = request.getParameter("startDate");
+            String endDateString = request.getParameter("endDate");
+            String startTimeString = request.getParameter("startTime");
+            String endTimeString = request.getParameter("endTime");
+
+            LocalDate startDate = startDateString.isEmpty() ? LocalDate.MIN : LocalDate.parse(startDateString);
+            LocalDate endDate = endDateString.isEmpty() ? LocalDate.MAX : LocalDate.parse(endDateString);
+            LocalTime startTime = startTimeString.isEmpty() ? LocalTime.MIN : LocalTime.parse(startTimeString);
+            LocalTime endTime = endTimeString.isEmpty() ? LocalTime.MAX : LocalTime.parse(endTimeString);
+
+            List<UserMealWithExceed> filteredList = controller.getFilteredList(startDate, startTime, endDate, endTime);
+
+            request.setAttribute("mealList", filteredList);
+            request.getRequestDispatcher("/mealList.jsp").forward(request, response);
+        }
+
         request.setCharacterEncoding("UTF-8");
         String id = request.getParameter("id");
         UserMeal userMeal = new UserMeal(id.isEmpty() ? null : Integer.valueOf(id),
