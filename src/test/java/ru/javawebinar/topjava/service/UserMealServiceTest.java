@@ -38,7 +38,7 @@ public class UserMealServiceTest {
 
     @Test(expected = NotFoundException.class)
     public void testDeleteNotFound() throws Exception {
-        service.delete(MEAL1_ID, 1);
+        service.delete(MEAL1_ID, 100001);
     }
 
     @Test
