@@ -24,4 +24,6 @@ public interface UserMealRepository {
 
     // ORDERED dateTime
     Collection<UserMeal> getBetween(LocalDateTime startDate, LocalDateTime endDate, int userId);
+
+    UserMeal getWithUser(int id, int userId);
 }

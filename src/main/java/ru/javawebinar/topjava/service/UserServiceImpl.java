@@ -47,6 +47,11 @@ public class UserServiceImpl implements UserService {
         return repository.getAll();
     }
 
+    @Override
+    public User getWithMeals(int id) {
+        return repository.getWithMeals(id);
+    }
+
     @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
         repository.save(user);

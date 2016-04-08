@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
 
 import static java.time.LocalDateTime.of;
 import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
@@ -17,8 +18,8 @@ import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
  */
 public class MealTestData {
 
-    public static final ModelMatcher<UserMeal, String> MATCHER = new ModelMatcher<>(UserMeal::toString);
-
+    public static final ModelMatcher<UserMeal, String> MATCHER = new ModelMatcher<>((java.util.function.Function<UserMeal, String>) (userMeal) -> userMeal.toString());
+    public static final ModelMatcher<UserMeal, String> MATCHER2 = new ModelMatcher<>((java.util.function.Function<UserMeal, String>) userMeal -> userMeal.toString()+ ", user=" + userMeal.getUser());
     public static final int MEAL1_ID = START_SEQ + 2;
     public static final int ADMIN_MEAL_ID = START_SEQ + 8;
 

@@ -8,6 +8,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
+import java.util.Collection;
 import java.util.Date;
 import java.util.EnumSet;
 import java.util.Set;
@@ -55,6 +56,19 @@ public class User extends NamedEntity {
     @Digits(fraction = 0, integer = 4)
     protected int caloriesPerDay = UserMealsUtil.DEFAULT_CALORIES_PER_DAY;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    @JoinColumn(name="user_id", referencedColumnName="id", updatable = false)
+    @OrderBy("dateTime DESC")
+    protected Collection<UserMeal> userMeals;
+
+    public Collection<UserMeal> getUserMeals() {
+        return userMeals;
+    }
+
+    public void setUserMeals(Collection<UserMeal> userMeals) {
+        this.userMeals = userMeals;
+    }
+
     public User() {
     }
 
@@ -73,6 +87,16 @@ public class User extends NamedEntity {
         this.caloriesPerDay = caloriesPerDay;
         this.enabled = enabled;
         this.roles = roles;
+    }
+
+    public User(Integer id, String name, String email, String password, int caloriesPerDay, boolean enabled, Set<Role> roles, Collection<UserMeal>meals) {
+        super(id, name);
+        this.email = email;
+        this.password = password;
+        this.caloriesPerDay = caloriesPerDay;
+        this.enabled = enabled;
+        this.roles = roles;
+        this.userMeals = meals;
     }
 
     public String getEmail() {

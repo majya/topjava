@@ -70,4 +70,9 @@ public class JpaUserMealRepositoryImpl implements UserMealRepository {
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate).getResultList();
     }
+
+    @Override
+    public UserMeal getWithUser(int id, int userId) {
+        return null;
+    }
 }

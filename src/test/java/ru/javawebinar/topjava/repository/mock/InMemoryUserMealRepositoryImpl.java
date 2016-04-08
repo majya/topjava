@@ -82,4 +82,9 @@ public class InMemoryUserMealRepositoryImpl implements UserMealRepository {
                 .filter(um -> TimeUtil.isBetween(um.getDateTime(), startDateTime, endDateTime))
                 .collect(Collectors.toList());
     }
+
+    @Override
+    public UserMeal getWithUser(int id, int userId) {
+        return null;
+    }
 }
