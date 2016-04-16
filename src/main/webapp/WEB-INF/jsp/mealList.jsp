@@ -12,7 +12,7 @@
 <section>
     <h2><a href="${pageContext.request.contextPath}">Home</a></h2>
     <h3><fmt:message key="meals.title"/></h3>
-    <form method="post" action="meals?action=filter">
+    <form method="post" action="meals/filter">
         <dl>
             <dt>From Date:</dt>
             <dd><input type="date" name="startDate" value="${startDate}"></dd>
@@ -32,7 +32,7 @@
         <button type="submit">Filter</button>
     </form>
     <hr>
-    <a href="meals?action=create"><fmt:message key="meals.add"/></a>
+    <a href="meals/create"><fmt:message key="meals.add"/></a>
     <hr>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
@@ -54,8 +54,8 @@
                 <td>${meal.description}</td>
                 <td>${meal.calories}</td>
                 <%--<td><a href=meals/update&id=${meal.id}">Update</a></td>--%>
-                <td><a href="<c:url value="/meals/update?id=${meal.id}"/>"><fmt:message key="meals.edit"/> </a></td>
-                <td><a href="<c:url value="/meals/delete?id=${meal.id}"/>"><fmt:message key="meals.delete"/> </a></td>
+                <td><a href="<c:url value="meals/update?id=${meal.id}"/>"><fmt:message key="meals.edit"/> </a></td>
+                <td><a href="<c:url value="meals/delete?id=${meal.id}"/>"><fmt:message key="meals.delete"/> </a></td>
             </tr>
         </c:forEach>
     </table>
