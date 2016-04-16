@@ -4,13 +4,14 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <section>
-    <h2><a href="index.jsp">Home</a></h2>
-    <h3>Meal list</h3>
+    <h2><a href="${pageContext.request.contextPath}">Home</a></h2>
+    <h3><fmt:message key="meals.title"/></h3>
     <form method="post" action="meals?action=filter">
         <dl>
             <dt>From Date:</dt>
@@ -31,14 +32,14 @@
         <button type="submit">Filter</button>
     </form>
     <hr>
-    <a href="meals?action=create">Add Meal</a>
+    <a href="meals?action=create"><fmt:message key="meals.add"/></a>
     <hr>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Calories</th>
+            <th><fmt:message key="meals.date"/> </th>
+            <th><fmt:message key="meals.description"/> </th>
+            <th><fmt:message key="meals.calories"/> </th>
             <th></th>
             <th></th>
         </tr>
@@ -53,8 +54,8 @@
                 <td>${meal.description}</td>
                 <td>${meal.calories}</td>
                 <%--<td><a href=meals/update&id=${meal.id}">Update</a></td>--%>
-                <td><a href="<c:url value="/meals/update?id=${meal.id}"/>">Update</a></td>
-                <td><a href="<c:url value="/meals/delete?id=${meal.id}"/>">Delete</a></td>
+                <td><a href="<c:url value="/meals/update?id=${meal.id}"/>"><fmt:message key="meals.edit"/> </a></td>
+                <td><a href="<c:url value="/meals/delete?id=${meal.id}"/>"><fmt:message key="meals.delete"/> </a></td>
             </tr>
         </c:forEach>
     </table>
