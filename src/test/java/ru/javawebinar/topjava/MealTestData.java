@@ -3,6 +3,8 @@ package ru.javawebinar.topjava;
 import ru.javawebinar.topjava.TestUtil.ToStringModelMatcher;
 import ru.javawebinar.topjava.matcher.ModelMatcher;
 import ru.javawebinar.topjava.model.UserMeal;
+import ru.javawebinar.topjava.to.UserMealWithExceed;
+import ru.javawebinar.topjava.util.UserMealsUtil;
 
 import java.time.Month;
 import java.util.Arrays;
@@ -18,6 +20,7 @@ import static ru.javawebinar.topjava.model.BaseEntity.START_SEQ;
 public class MealTestData {
 
     public static final ModelMatcher<UserMeal, String> MATCHER = new ToStringModelMatcher<>(UserMeal.class);
+    public static final ModelMatcher<UserMealWithExceed, String> WITH_EXCEED_MATCHER = new ToStringModelMatcher<>(UserMealWithExceed.class);
 
     public static final int MEAL1_ID = START_SEQ + 2;
     public static final int ADMIN_MEAL_ID = START_SEQ + 8;
@@ -32,6 +35,8 @@ public class MealTestData {
     public static final UserMeal ADMIN_MEAL2 = new UserMeal(ADMIN_MEAL_ID + 1, of(2015, Month.JUNE, 1, 21, 0), "Админ ужин", 1500);
 
     public static final List<UserMeal> USER_MEALS = Arrays.asList(MEAL6, MEAL5, MEAL4, MEAL3, MEAL2, MEAL1);
+
+    public static final List<UserMealWithExceed> USER_MEAL_WITH_EXCEEDS = UserMealsUtil.getWithExceeded(USER_MEALS, UserTestData.USER.getCaloriesPerDay());
 
     public static UserMeal getCreated() {
         return new UserMeal(null, of(2015, Month.JUNE, 1, 18, 0), "Созданный ужин", 300);
