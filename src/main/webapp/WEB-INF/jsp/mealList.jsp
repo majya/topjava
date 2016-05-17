@@ -8,6 +8,7 @@
 <link rel="stylesheet" href="webjars/datatables/1.10.11/css/jquery.dataTables.min.css">
 <link rel="stylesheet" href="webjars/datetimepicker/2.4.7/jquery.datetimepicker.css">
 
+
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
