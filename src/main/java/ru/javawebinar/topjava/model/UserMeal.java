@@ -2,7 +2,6 @@ package ru.javawebinar.topjava.model;
 
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
-import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -19,7 +18,7 @@ import java.time.LocalDateTime;
         @NamedQuery(name = UserMeal.ALL_SORTED, query = "SELECT m FROM UserMeal m WHERE m.user.id=:userId ORDER BY m.dateTime DESC"),
         @NamedQuery(name = UserMeal.DELETE, query = "DELETE FROM UserMeal m WHERE m.id=:id AND m.user.id=:userId"),
         @NamedQuery(name = UserMeal.GET_BETWEEN, query = "SELECT m FROM UserMeal m "+
-                                                          "WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC"),
+                "WHERE m.user.id=:userId AND m.dateTime BETWEEN :startDate AND :endDate ORDER BY m.dateTime DESC"),
 
 //        @NamedQuery(name = UserMeal.UPDATE, query = "UPDATE UserMeal m SET m.dateTime = :datetime, m.calories= :calories," +
 //                "m.description=:desc where m.id=:id and m.user.id=:userId")
@@ -34,7 +33,6 @@ public class UserMeal extends BaseEntity {
 
     @Column(name = "date_time", nullable = false)
     @NotNull
-    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime dateTime;
 
     @Column(name = "description", nullable = false)
@@ -43,7 +41,6 @@ public class UserMeal extends BaseEntity {
 
     @Column(name = "calories", nullable = false)
     @Range(min = 10, max = 5000)
-    @NotNull
     protected int calories;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -84,7 +81,7 @@ public class UserMeal extends BaseEntity {
         this.description = description;
     }
 
-    public void setCalories(Integer calories) {
+    public void setCalories(int calories) {
         this.calories = calories;
     }
 
